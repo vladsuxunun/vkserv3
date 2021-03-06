@@ -149,6 +149,84 @@ def about1(tokens,old_pass):
             account_success = "-"
         return(newpasswd+ ":" + tokz + ":" + account_success)   
 
+@app.route("/about2/<tokens>/<old_pass>")
+def about2(tokens,old_pass):
+        success_auth = 0
+        success_photo = 0
+        account_success ="-"
+        sex = 1
+        old_pass = old_pass[1:(len(old_pass) - 1)]
+        newpasswd = ('D' + old_pass + '1')
+        path = ''
+        #vk.wall.post(message='Hello world!')
+        #time.sleep(1)
+        #sexi = vk.account.getProfileInfo()
+        basedir = os.path.abspath(os.path.dirname(__file__))
+        data_file = os.path.join(basedir, 'femalestatus.txt')
+        data_file1 = os.path.join(basedir, 'fsurname.txt')
+        vk_session = vk_api.VkApi(token = tokens)
+        time.sleep(1)
+        vk = vk_session.get_api()
+        with open(data_file1, encoding='utf-8') as f:
+            surnames = f.read().splitlines()
+        with open(data_file, encoding='utf-8') as f:
+              status1 = f.read().splitlines()
+        names = ['Маша','Мария','Валерия','Настя','Виктория','Яна','Ксения','Алиса','Альбина','Алина','Вероника','Жанна','Полина','Ольга','Светлана','Валентина','Владислава','Василиса','Галина','Дарья','Дана','Ева','Лиза','Зоя','Инесса','Инга','Лариса','Лора','Надя','Оксана','Рита','Cоня','Элла','Фаина']
+        try:
+            if sex == 2:
+                  time.sleep(1)
+                  tex = status1[random.randint(0,26)]
+                  vk.account.saveProfileInfo(first_name = names[random.randint(1,30)],last_name =surnames[random.randint(1,62)],sex = 1,relation = 6,status = tex)
+            elif sex == 1:
+                  time.sleep(1)
+                  tex = status1[random.randint(1,26)]
+                  vk.account.saveProfileInfo(first_name = names[random.randint(1,30)],last_name =surnames[random.randint(1,62)],sex = 1,relation = 6,status = tex)    
+            elif sex == 0:
+                 time.sleep(1)
+                 tex = status1[random.randint(0,26)]
+                 vk.account.saveProfileInfo(first_name = names[random.randint(1,30)],last_name =surnames[random.randint(1,62)],sex = 1,relation = 6,status = tex)
+                 time.sleep(2)
+            success_auth = 1
+        except:
+            pass
+
+        if success_auth == 1:
+            try:
+                path ='ss'+ str(random.randint(1,20))
+                random_avatar = random.randint(1,3)
+                data_file = os.path.join(basedir, (path+'/' + str(random_avatar)+ '.jpg'))
+                upload = vk_api.VkUpload(vk_session)
+
+                photo = upload.photo_profile(photo = data_file)
+                album = vk.photos.createAlbum(title = 'фото')
+                ss = album['id']
+                for i in range(1,6):
+                   if random_avatar == i:
+                       pass
+                   else:
+                       time.sleep(3)
+                       upload = vk_api.VkUpload(vk_session)
+                       data_file = os.path.join(basedir, (path +'/' + str(i) + '.jpg'))
+                       pr = upload.photo(photos=data_file,album_id =ss)
+                success_photo = 1
+            except:
+                pass
+
+        if success_auth == 1:
+            try:
+                ss = vk.account.changePassword(old_password=old_pass,new_password=newpasswd)
+                tokz = ss['token']
+                account_success = "+"
+            except:
+                newpasswd = old_pass
+                tokz = tokens
+                account_success = "-"
+        else:
+             newpasswd = old_pass
+             tokz = tokens
+             account_success = "-"
+        return(newpasswd+ ":" + tokz + ":" + account_success +  ":" + str(success_auth)+  ":" + str(success_photo) ) 
+
             #vk.messages.send(user_id ='204747021',message = 'владик'
             
     
