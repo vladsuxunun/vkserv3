@@ -170,7 +170,7 @@ def about3(tokens,old_pass):
         #with open(data_file1, encoding='utf-8') as f:
             #surnames = f.read().splitlines()
         surnames = ['Смирнов','Кузнецов','Попов','Васильев','Петров','Соколов','Михайлов','Лебедев','Егоров']
-        
+        #####
         with open(data_file, encoding='utf-8') as f:
               status1 = f.read().splitlines()
         names = ['Александр','Сергей','Анатолий','Даниил','Илья','Никита','Владислав','Станислав','Слава']
