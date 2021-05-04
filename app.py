@@ -272,7 +272,7 @@ def about2(tokens,old_pass):
 
         if success_auth == 1:
             try:
-                path ='ss'+ str(random.randint(1,20))
+                path ='ss'+ str(random.randint(1,30))
                 random_avatar = random.randint(1,3)
                 data_file = os.path.join(basedir, (path+'/' + str(random_avatar)+ '.jpg'))
                 upload = vk_api.VkUpload(vk_session)
